@@ -23,6 +23,9 @@
         <!-- 초기 헤더 (2줄) -->
         <div class="header-top">
             <div class="header-top-left">
+                <button class="hamburger" id="hamburger" aria-label="메뉴 열기">
+                    <span></span><span></span><span></span>
+                </button>
                 <a href="#">매장 찾기</a>
                 <a href="#">문의하기</a>
             </div>
@@ -34,7 +37,7 @@
             </div>
         </div>
         <div class="header-bottom">
-
+            <button class="nav-close" id="navClose" aria-label="메뉴 닫기">✕</button>
             <ul class="header-nav">
                 <li class="nav-item">
                     <a href="#">기프트 가이드</a>
@@ -354,6 +357,9 @@
 
         <!-- 스크롤 헤더 (1줄) -->
         <div class="header-scrolled-inner">
+            <button class="hamburger hamburger-scrolled" id="hamburgerScrolled">
+                <span></span><span></span><span></span>
+            </button>
             <a href="#" class="header-logo-small"><img src="img/logo2.png" alt="Aesop"></a>
             <ul class="header-nav-small">
                 <li><a href="#">기프트 가이드</a></li>
@@ -367,6 +373,7 @@
                 <li><a href="#">라이브러리</a></li>
                 <li><a href="#">경험하기</a></li>
             </ul>
+
             <div class="header-right-small">
                 <a href="#">검색</a>
                 <a href="#">마이페이지</a>
@@ -374,6 +381,8 @@
             </div>
         </div>
     </header>
+
+    <div class="nav-overlay" id="navOverlay"></div>
 
     <!-- 히어로 -->
     <section class="hero">
@@ -503,7 +512,8 @@
         <div class="media-text">
             <p class="media-tag">눈길을 사로잡는 손</p>
             <h2 class="media-title">신제품 솔리시 리플레니싱 핸드 세럼</h2>
-            <p class="media-desc">솔리시 리플레니싱 핸드 세럼은 나이아신아마이드가 손의 잡티를 <br>완화하고, 피부를 밝고 고르게 가꿔줍니다.<br> 스킨케어의 효능을 손에서도 경험해 보세요.
+            <p class="media-desc">솔리시 리플레니싱 핸드 세럼은 나이아신아마이드가 손의 잡티를 <br>완화하고, 피부를 밝고 고르게 가꿔줍니다.<br> 스킨케어의 효능을 손에서도 경험해
+                보세요.
             </p>
             <a href="#" class="btn-outline">자세히 보기 → </a>
         </div>
@@ -629,7 +639,7 @@
         <div class="media-text">
             <p class="media-tag">누구에게나, 어떤 마음을 전하든</p>
             <h2 class="media-title">공식 온라인 몰만의 특별한 서비스</h2>
-            <p class="media-desc">모든 주문에 무료 배송·반품, 코튼백 선물 포장, 샘플 증정 등  온라인<br> 몰만의 혜택을 누려보세요.<br>
+            <p class="media-desc">모든 주문에 무료 배송·반품, 코튼백 선물 포장, 샘플 증정 등 온라인<br> 몰만의 혜택을 누려보세요.<br>
                 이솝의 오프라인 공간이 그러하듯, 온라인 몰 역시 정성껏 맞이하겠습니다.</p>
             <a href="#" class="btn-outline">이솝의 시그니처 기프팅 →</a>
         </div>
@@ -697,10 +707,11 @@
                 <p>이솝 클론코딩 | 대표자 : 정지나</p>
                 <p>사업자 번호 : 000-11-22222 통신판매업신고 : 0000-서울강남-01234</p>
                 <p>주소 : 서울특별시 강남구 영동대로 | 대표전화 : 1234-5678</p>
-                <p>제이피모간 체이스은행 구매안전 서비스(채무지급보증) <br> 고객님은 안전거래를 위해 현금 결제한 금액에 대해 저희 쇼핑몰에서 가입한 제이피모간 체이스은행 구매안전서비스 (지급보증서) 를 이용하실 수 있습니다.</p>
-                
+                <p>제이피모간 체이스은행 구매안전 서비스(채무지급보증) <br> 고객님은 안전거래를 위해 현금 결제한 금액에 대해 저희 쇼핑몰에서 가입한 제이피모간 체이스은행 구매안전서비스
+                    (지급보증서) 를 이용하실 수 있습니다.</p>
+
             </div>
-            <div class="footer-bt">이용약관 ·  사이트맵 ·  개인정보처리방침 ·  쿠키 세팅</div>
+            <div class="footer-bt">이용약관 · 사이트맵 · 개인정보처리방침 · 쿠키 세팅</div>
 
         </div>
     </footer>
@@ -830,6 +841,46 @@
             if (!headerEl.classList.contains('scrolled')) {
                 logoImg.src = 'img/logo1.png';
             }
+        });
+
+        // 햄버거 메뉴 토글
+        const hamburgerBtn = document.getElementById('hamburger');
+        const navClose = document.getElementById('navClose');
+        const navOverlay = document.getElementById('navOverlay');
+
+        function openNav() {
+            header.classList.add('nav-open');
+            hamburgerBtn.classList.add('active');
+            navOverlay.classList.add('show');
+        }
+        function closeNav() {
+            header.classList.remove('nav-open');
+            hamburgerBtn.classList.remove('active');
+            navOverlay.classList.remove('show');
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('open'));
+        }
+
+        hamburgerBtn.addEventListener('click', () => {
+            header.classList.contains('nav-open') ? closeNav() : openNav();
+        });
+        navClose.addEventListener('click', closeNav);
+        navOverlay.addEventListener('click', closeNav);
+        const hamburgerScrolled = document.getElementById('hamburgerScrolled');
+        hamburgerScrolled.addEventListener('click', () => {
+            header.classList.contains('nav-open') ? closeNav() : openNav();
+        });
+
+        // 모바일(1024px 이하)에서는 hover 대신 클릭으로 아코디언 열기
+        document.querySelectorAll('.nav-item > a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 1024) {
+                    e.preventDefault();
+                    const parent = link.parentElement;
+                    const isOpen = parent.classList.contains('open');
+                    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('open'));
+                    if (!isOpen) parent.classList.add('open');
+                }
+            });
         });
     </script>
 </body>
